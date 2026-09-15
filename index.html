@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chulha Ghar - Premium Kitchen Essentials</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { primary: '#8b1e0f', gold: '#d4af37', bgLight: '#faf7f2' } } } }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #faf7f2; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 flex h-[72px] items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="h-10 w-10 rounded-full border-2 border-gold bg-bgLight flex items-center justify-center font-bold text-primary">CG</div>
+                <div>
+                    <h1 class="text-xl font-extrabold text-gray-900 leading-none">CHULHA GHAR</h1>
+                    <p class="text-[8px] font-bold text-primary tracking-[0.2em] mt-0.5">DEOGHAR</p>
+                </div>
+            </a>
+
+            <!-- Search (Desktop) -->
+            <div class="hidden md:block flex-1 max-w-xl mx-8 relative">
+                <input type="text" placeholder="Search products..." class="w-full h-10 bg-gray-50 border border-gray-200 rounded-full pl-10 pr-4 text-sm focus:outline-none focus:border-gold">
+                <i class="fa-solid fa-search absolute left-4 top-3 text-gray-400"></i>
+            </div>
+
+            <!-- Icons -->
+            <div class="flex items-center gap-4 text-gray-700">
+                <a href="wishlist.html"><i class="fa-regular fa-heart text-xl"></i></a>
+                <a href="cart.html" class="relative"><i class="fa-solid fa-cart-shopping text-xl"></i><span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-gold text-black text-[9px] font-bold px-1.5 py-0.5 rounded-full">0</span></a>
+                <a href="login.html"><i class="fa-regular fa-user text-xl hidden sm:block"></i></a>
+                <button id="menu-btn" class="sm:hidden text-2xl ml-2"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/50 z-[100] hidden">
+        <div id="menu-drawer" class="w-[75%] max-w-sm h-full bg-white ml-auto flex flex-col transition-transform translate-x-full duration-300">
+            <div class="bg-primary p-4 flex justify-between items-center text-white">
+                <div class="font-bold">Menu</div>
+                <button id="close-menu" class="text-2xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="flex flex-col p-2">
+                <a href="index.html" class="p-4 border-b font-semibold"><i class="fa-solid fa-house mr-3 text-gold"></i>Home</a>
+                <a href="shop.html" class="p-4 border-b font-semibold"><i class="fa-solid fa-shop mr-3 text-gold"></i>Shop</a>
+                <a href="cart.html" class="p-4 border-b font-semibold"><i class="fa-solid fa-cart-shopping mr-3 text-gold"></i>My Cart</a>
+                <a href="admin.html" class="p-4 font-semibold text-primary"><i class="fa-solid fa-user-shield mr-3"></i>Admin Panel</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="bg-white py-12 md:py-20 text-center border-b border-gray-200">
+        <div class="container mx-auto px-4">
+            <span class="bg-bgLight text-primary text-xs font-bold px-3 py-1 border border-primary/20 rounded-full tracking-widest uppercase">Deoghar's Premium Store</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-gray-900 mt-5 leading-tight">Rasoi ke liye <br><span class="text-primary">bharosemand bartan.</span></h2>
+            <p class="mt-4 text-gray-600 text-sm md:text-base max-w-lg mx-auto">Chulha Ghar Deoghar par aapko milenge premium cookware, stainless steel utensils, aur dinner sets.</p>
+        </div>
+    </section>
+
+    <!-- Dynamic Products -->
+    <section class="py-12 bg-bgLight">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Featured Products</h2>
+                <a href="shop.html" class="text-sm font-bold text-primary">View All <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+            
+            <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+                <p class="col-span-2 lg:col-span-4 text-center py-10 text-gray-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading from Firebase...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Javascript for Menu & Cart -->
+    <script>
+        // Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuDrawer = document.getElementById('menu-drawer');
+
+        menuBtn.onclick = () => {
+            mobileMenu.classList.remove('hidden');
+            setTimeout(() => menuDrawer.classList.remove('translate-x-full'), 10);
+        }
+        closeBtn.onclick = () => {
+            menuDrawer.classList.add('translate-x-full');
+            setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+        }
+
+        // Add to Cart Logic (Window Scope)
+        window.addToCart = function(id, name, price, emoji) {
+            let cart = JSON.parse(localStorage.getItem("chulha_cart") || "[]");
+            let existing = cart.find(item => item.id === id);
+            if(existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ id, name, price: Number(price), emoji, qty: 1 });
+            }
+            localStorage.setItem("chulha_cart", JSON.stringify(cart));
+            document.getElementById('cart-count').innerText = cart.length;
+            alert(`${name} added to cart!`);
+        }
+
+        // Initialize Cart Count
+        const initialCart = JSON.parse(localStorage.getItem("chulha_cart") || "[]");
+        document.getElementById('cart-count').innerText = initialCart.length;
+    </script>
+
+    <!-- Firebase Logic to fetch products -->
+    <script type="module">
+        import { db, collection, getDocs } from './js/firebase-config.js';
+
+        async function loadProducts() {
+            const grid = document.getElementById('product-grid');
+            try {
+                const querySnapshot = await getDocs(collection(db, "products"));
+                if(querySnapshot.empty) {
+                    grid.innerHTML = `<p class="col-span-full text-center py-10 text-gray-500 font-bold">Store is empty! Go to <a href="admin.html" class="text-primary underline">Admin Panel</a> to add products.</p>`;
+                    return;
+                }
+                
+                let html = '';
+                querySnapshot.forEach((doc) => {
+                    const p = doc.data();
+                    const mrp = Math.round(p.price * 1.3);
+                    const discount = Math.round(((mrp - p.price) / mrp) * 100);
+
+                    html += `
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col relative overflow-hidden group">
+                            <span class="absolute top-2 left-2 bg-gold text-black text-[10px] font-bold px-2 py-0.5 rounded shadow-sm z-10">${discount}% OFF</span>
+                            <div class="h-40 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-300">
+                                ${p.emoji}
+                            </div>
+                            <div class="p-4 flex flex-col flex-1">
+                                <span class="text-[10px] font-extrabold text-primary uppercase tracking-wider mb-1">${p.category}</span>
+                                <h3 class="font-bold text-gray-800 text-[13px] leading-tight mb-2 line-clamp-2 min-h-[2.5rem]">${p.name}</h3>
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span class="font-black text-primary text-lg">₹${p.price}</span>
+                                    <span class="text-xs text-gray-400 line-through">₹${mrp}</span>
+                                </div>
+                                <button onclick="addToCart('${doc.id}', '${p.name}', ${p.price}, '${p.emoji}')" class="mt-auto w-full bg-primary text-white py-2.5 rounded-lg text-sm font-bold shadow-md hover:bg-red-900 active:scale-95 transition-all">
+                                    <i class="fa-solid fa-cart-plus mr-1"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                grid.innerHTML = html;
+            } catch (error) {
+                console.error(error);
+                grid.innerHTML = `<p class="col-span-full text-center text-red-500">Error loading products.</p>`;
+            }
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
