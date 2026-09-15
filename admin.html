@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Upload Product | Chulha Ghar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { primary: '#8b1e0f', gold: '#d4af37' } } } }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-10">
+
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Upload New Product</h1>
+        <p class="text-gray-500 text-sm mb-8">Add premium utensils to your Firebase database.</p>
+
+        <form id="uploadForm" class="space-y-5">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">Product Name</label>
+                <input type="text" id="name" required class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Selling Price (₹)</label>
+                    <input type="number" id="price" required class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-primary">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Category</label>
+                    <select id="category" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-primary">
+                        <option>Cookware</option>
+                        <option>Pressure Cookers</option>
+                        <option>Kadhai & Tawa</option>
+                        <option>Dinner Sets</option>
+                        <option>Kitchen Tools</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Product Emoji (For Image)</label>
+                    <input type="text" id="emoji" required placeholder="🥘" class="w-full border border-gray-300 rounded-lg p-3 text-2xl text-center focus:outline-none focus:border-primary">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Stock Status</label>
+                    <select id="stock" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-primary">
+                        <option value="true">In Stock</option>
+                        <option value="false">Out of Stock</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-primary text-white font-bold py-4 rounded-xl shadow-lg hover:bg-red-900 transition mt-4">
+                Upload to Firebase
+            </button>
+        </form>
+        <p id="message" class="text-center font-bold mt-4"></p>
+    </div>
+
+    <!-- Firebase Logic -->
+    <script type="module">
+        import { db, collection, addDoc } from './js/firebase-config.js';
+
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const msg = document.getElementById('message');
+            btn.innerText = "Uploading...";
+            
+            try {
+                // Formatting data for Firebase
+                const productData = {
+                    name: document.getElementById('name').value,
+                    price: Number(document.getElementById('price').value),
+                    category: document.getElementById('category').value,
+                    emoji: document.getElementById('emoji').value,
+                    inStock: document.getElementById('stock').value === "true",
+                    timestamp: new Date()
+                };
+
+                // Add to Firestore
+                await addDoc(collection(db, "products"), productData);
+                
+                msg.innerText = "Product Uploaded Successfully! ✅";
+                msg.className = "text-center font-bold mt-4 text-green-600";
+                document.getElementById('uploadForm').reset();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                msg.innerText = "Error: " + error.message;
+                msg.className = "text-center font-bold mt-4 text-red-600";
+            }
+            btn.innerText = "Upload to Firebase";
+        });
+    </script>
+</body>
+</html>
