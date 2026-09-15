@@ -22,18 +22,17 @@ const headerHTML = `
         </div>
     </div>
 
-    <!-- Main Header -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-[100] shadow-sm">
+    <!-- Main Header (Glassmorphism & Sticky) -->
+    <header class="bg-white/90 backdrop-blur-lg border-b border-gray-100 sticky top-0 z-[100] shadow-sm transition-all duration-300">
         <div class="container mx-auto px-4 lg:px-8 flex h-[72px] md:h-20 items-center gap-4 justify-between">
             
             <!-- Left Side: Hamburger (Mobile) + Logo -->
             <div class="flex items-center gap-3 lg:gap-5 flex-shrink-0">
-                <button id="menu-btn" class="lg:hidden text-gray-700 hover:text-[#8b1e0f] transition-colors p-1 active:scale-95">
-                    <i class="fa-solid fa-bars text-2xl"></i>
+                <button id="menu-btn" class="lg:hidden text-gray-700 hover:text-[#8b1e0f] transition-colors p-2 active:scale-95 bg-gray-50 rounded-full">
+                    <i class="fa-solid fa-bars text-xl"></i>
                 </button>
                 <a href="index.html" class="flex items-center gap-2 lg:gap-3 group">
-                    <div class="h-10 w-10 md:h-12 md:w-12 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:border-[#d4af37] transition-colors">
-                        <!-- Upload 'logo.jpg' in your repo, otherwise it uses a dummy one -->
+                    <div class="h-10 w-10 md:h-12 md:w-12 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center overflow-hidden group-hover:border-[#d4af37] transition-all group-hover:shadow-md">
                         <img src="logo.jpg" alt="Logo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=CG&background=8b1e0f&color=fff'">
                     </div>
                     <div class="flex flex-col justify-center">
@@ -45,22 +44,22 @@ const headerHTML = `
 
             <!-- Center: Search (Desktop) -->
             <div class="hidden lg:flex flex-1 max-w-2xl relative group mx-4">
-                <input type="text" id="desktop-search" placeholder="Search Mixer, Chimney, Cookware..." class="w-full h-11 bg-gray-50 border border-gray-200 rounded-full pl-12 pr-4 text-sm font-medium focus:outline-none focus:border-[#d4af37] focus:bg-white transition-all shadow-inner">
-                <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#8b1e0f] transition-colors"></i>
+                <input type="text" id="desktop-search" placeholder="Search Mixer, Chimney, Cookware..." class="w-full h-12 bg-gray-50/50 border border-gray-200 rounded-full pl-12 pr-4 text-sm font-medium focus:outline-none focus:border-[#d4af37] focus:bg-white transition-all shadow-inner hover:border-gray-300">
+                <i class="fa-solid fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#8b1e0f] transition-colors"></i>
             </div>
 
             <!-- Right Side: Icons -->
             <div class="flex items-center gap-4 lg:gap-6 text-gray-600 flex-shrink-0">
-                <a href="wishlist.html" class="relative hover:text-[#8b1e0f] transition-colors p-1">
-                    <i class="fa-regular fa-heart text-xl md:text-2xl"></i>
-                    <span id="wishlist-count" class="absolute -top-1 -right-1 bg-[#8b1e0f] text-white text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm">0</span>
+                <a href="wishlist.html" class="relative hover:text-[#8b1e0f] transition-colors p-2 flex flex-col items-center group">
+                    <i class="fa-regular fa-heart text-xl md:text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span id="wishlist-count" class="absolute top-0 right-0 bg-[#8b1e0f] text-white text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm">0</span>
                 </a>
-                <a href="cart.html" class="relative hover:text-[#8b1e0f] transition-colors p-1">
-                    <i class="fa-solid fa-cart-shopping text-xl md:text-2xl"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-[#d4af37] text-black text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm">0</span>
+                <a href="cart.html" class="relative hover:text-[#8b1e0f] transition-colors p-2 flex flex-col items-center group">
+                    <i class="fa-solid fa-cart-shopping text-xl md:text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span id="cart-count" class="absolute top-0 right-0 bg-[#d4af37] text-black text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm">0</span>
                 </a>
-                <a href="login.html" class="hidden md:flex hover:text-[#8b1e0f] transition-colors p-1">
-                    <i class="fa-regular fa-user text-xl md:text-2xl"></i>
+                <a href="login.html" class="hidden md:flex hover:text-[#8b1e0f] transition-colors p-2 flex-col items-center group">
+                    <i class="fa-regular fa-user text-xl md:text-2xl group-hover:scale-110 transition-transform"></i>
                 </a>
             </div>
         </div>
@@ -68,31 +67,33 @@ const headerHTML = `
         <!-- Mobile Search Bar -->
         <div class="lg:hidden px-4 pb-3">
             <div class="relative">
-                <input type="text" id="mobile-search" placeholder="Search products..." class="w-full h-10 bg-gray-50 border border-gray-200 rounded-full pl-10 pr-4 text-sm focus:outline-none focus:border-[#d4af37]">
-                <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input type="text" id="mobile-search" placeholder="Search products..." class="w-full h-11 bg-gray-50 border border-gray-200 rounded-full pl-10 pr-4 text-sm focus:outline-none focus:border-[#d4af37] focus:bg-white shadow-inner">
+                <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
             </div>
         </div>
     </header>
 
     <!-- Mobile Menu Drawer & Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none"></div>
-    <div id="menu-drawer" class="fixed top-0 left-0 h-[100dvh] w-[80%] max-w-sm bg-white z-[120] shadow-2xl transform transition-transform duration-300 -translate-x-full flex flex-col">
-        <div class="bg-gradient-to-br from-[#8b1e0f] to-[#64150c] p-5 flex justify-between items-center text-white shrink-0">
-            <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-regular fa-user"></i></div>
+    <div id="menu-drawer" class="fixed top-0 left-0 h-[100dvh] w-[85%] max-w-sm bg-white z-[120] shadow-2xl transform transition-transform duration-300 -translate-x-full flex flex-col">
+        <div class="bg-gradient-to-br from-[#8b1e0f] to-[#64150c] p-6 flex justify-between items-center text-white shrink-0">
+            <div class="flex items-center gap-4">
+                <div class="h-12 w-12 rounded-full bg-white/20 flex items-center justify-center border border-white/30"><i class="fa-regular fa-user text-xl"></i></div>
                 <div>
                     <div class="font-bold text-sm">Welcome Guest</div>
-                    <a href="login.html" class="text-[10px] text-[#d4af37] underline tracking-wide">Login / Signup</a>
+                    <a href="login.html" class="text-[11px] text-[#d4af37] hover:text-white transition-colors underline tracking-wide">Login / Signup</a>
                 </div>
             </div>
-            <button id="close-menu" class="text-white p-2 hover:bg-white/10 rounded-full active:bg-white/20"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button id="close-menu" class="text-white p-2 hover:bg-white/10 rounded-full active:bg-white/20 transition-colors"><i class="fa-solid fa-xmark text-2xl"></i></button>
         </div>
-        <div class="flex-1 overflow-y-auto flex flex-col font-semibold text-gray-700 text-sm">
-            <a href="index.html" class="p-4 border-b border-gray-100 flex items-center justify-between active:bg-gray-50"><span class="flex items-center gap-3"><i class="fa-solid fa-house text-[#d4af37] w-5 text-center"></i> Home</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
-            <a href="shop.html" class="p-4 border-b border-gray-100 flex items-center justify-between active:bg-gray-50"><span class="flex items-center gap-3"><i class="fa-solid fa-shop text-[#d4af37] w-5 text-center"></i> Shop All</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
-            <a href="orders.html" class="p-4 border-b border-gray-100 flex items-center justify-between active:bg-gray-50"><span class="flex items-center gap-3"><i class="fa-solid fa-box text-[#d4af37] w-5 text-center"></i> My Orders</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
-            <a href="contact.html" class="p-4 border-b border-gray-100 flex items-center justify-between active:bg-gray-50"><span class="flex items-center gap-3"><i class="fa-solid fa-phone text-[#d4af37] w-5 text-center"></i> Contact Us</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
-            <a href="admin.html" class="p-4 border-b border-gray-100 flex items-center justify-between text-[#8b1e0f] bg-red-50/50 active:bg-red-50 mt-auto"><span class="flex items-center gap-3"><i class="fa-solid fa-user-shield w-5 text-center"></i> Admin Panel</span> <i class="fa-solid fa-chevron-right text-red-300 text-xs"></i></a>
+        <div class="flex-1 overflow-y-auto flex flex-col font-semibold text-gray-700 text-[15px]">
+            <a href="index.html" class="p-5 border-b border-gray-100 flex items-center justify-between hover:bg-gray-50 hover:text-[#8b1e0f] transition-colors"><span class="flex items-center gap-4"><i class="fa-solid fa-house text-[#d4af37] w-6 text-center text-lg"></i> Home</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+            <a href="shop.html" class="p-5 border-b border-gray-100 flex items-center justify-between hover:bg-gray-50 hover:text-[#8b1e0f] transition-colors"><span class="flex items-center gap-4"><i class="fa-solid fa-shop text-[#d4af37] w-6 text-center text-lg"></i> Shop All</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+            <a href="wishlist.html" class="p-5 border-b border-gray-100 flex items-center justify-between hover:bg-gray-50 hover:text-[#8b1e0f] transition-colors"><span class="flex items-center gap-4"><i class="fa-solid fa-heart text-[#d4af37] w-6 text-center text-lg"></i> My Wishlist</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+            <a href="orders.html" class="p-5 border-b border-gray-100 flex items-center justify-between hover:bg-gray-50 hover:text-[#8b1e0f] transition-colors"><span class="flex items-center gap-4"><i class="fa-solid fa-box text-[#d4af37] w-6 text-center text-lg"></i> My Orders</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+            <a href="contact.html" class="p-5 border-b border-gray-100 flex items-center justify-between hover:bg-gray-50 hover:text-[#8b1e0f] transition-colors"><span class="flex items-center gap-4"><i class="fa-solid fa-phone text-[#d4af37] w-6 text-center text-lg"></i> Contact Us</span> <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+            
+            <a href="admin.html" class="p-5 border-b border-gray-100 flex items-center justify-between text-[#8b1e0f] bg-red-50/50 hover:bg-red-50 mt-auto transition-colors"><span class="flex items-center gap-4"><i class="fa-solid fa-user-shield w-6 text-center text-lg"></i> Admin Panel</span> <i class="fa-solid fa-chevron-right text-red-300 text-xs"></i></a>
         </div>
     </div>
 `;
@@ -171,11 +172,13 @@ class AppHeader extends HTMLElement {
             mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
             mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
             menuDrawer.classList.remove('-translate-x-full');
+            document.body.style.overflow = 'hidden'; // Stop background scroll
         };
         const closeMenu = () => {
             menuDrawer.classList.add('-translate-x-full');
             mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
             mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto'; // Restore background scroll
         };
 
         if(menuBtn && closeBtn && mobileMenu && menuDrawer) {
@@ -183,6 +186,20 @@ class AppHeader extends HTMLElement {
             closeBtn.addEventListener('click', closeMenu);
             mobileMenu.addEventListener('click', closeMenu);
         }
+
+        // Search Bar Logic (Redirects to shop page with query)
+        const setupSearch = (inputId) => {
+            const searchInput = this.querySelector(inputId);
+            if(searchInput) {
+                searchInput.addEventListener('keypress', (e) => {
+                    if(e.key === 'Enter' && searchInput.value.trim() !== '') {
+                        window.location.href = `shop.html?search=${encodeURIComponent(searchInput.value.trim())}`;
+                    }
+                });
+            }
+        };
+        setupSearch('#desktop-search');
+        setupSearch('#mobile-search');
 
         // Cart and Wishlist Sync Logic
         const updateCounts = () => {
@@ -193,7 +210,10 @@ class AppHeader extends HTMLElement {
                 const cartCountEl = this.querySelector('#cart-count');
                 const wishlistCountEl = this.querySelector('#wishlist-count');
                 
-                if(cartCountEl) cartCountEl.innerText = cart.length;
+                // Calculate total quantity in cart instead of just item types
+                const totalCartQty = cart.reduce((total, item) => total + (item.qty || 1), 0);
+                
+                if(cartCountEl) cartCountEl.innerText = totalCartQty;
                 if(wishlistCountEl) wishlistCountEl.innerText = wishlist.length;
             } catch(e) { console.error("Error reading localStorage"); }
         };
@@ -202,13 +222,19 @@ class AppHeader extends HTMLElement {
         updateCounts();
         window.addEventListener('chulha-cart-updated', updateCounts);
         window.addEventListener('chulha-wishlist-updated', updateCounts);
-        window.addEventListener('storage', updateCounts);
+        
+        // Listen to storage events (if changed from another tab)
+        window.addEventListener('storage', (e) => {
+            if(e.key === 'chulha_cart' || e.key === 'chulha_wishlist') {
+                updateCounts();
+            }
+        });
 
-        // Hide Welcome Banner on Scroll down
+        // Hide Welcome Banner on Scroll down for better visibility
         const banner = this.querySelector('#welcome-banner');
         window.addEventListener('scroll', () => {
             if(!banner) return;
-            if (window.scrollY > 5) {
+            if (window.scrollY > 10) {
                 banner.style.maxHeight = '0px';
                 banner.style.opacity = '0';
                 banner.style.paddingTop = '0px';
