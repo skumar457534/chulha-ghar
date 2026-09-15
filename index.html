@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chulha Ghar - Premium Kitchen Essentials in Deoghar</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Icons (FontAwesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Custom Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -25,67 +21,153 @@
     </script>
     
     <style>
-        body { background-color: #1a1a1a; scroll-behavior: smooth; } /* Dark bg behind wrapper for parallax */
+        body { background-color: #1a1a1a; scroll-behavior: smooth; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* Wishlist Heart Animation */
-        .heart-btn { transition: all 0.2s ease; cursor: pointer; }
-        .heart-btn.active i { font-weight: 900; color: #8b1e0f; transform: scale(1.15); }
-        .heart-btn:hover i { color: #8b1e0f; transform: scale(1.1); }
+        .heart-btn { transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+        .heart-btn.active i { font-weight: 900; color: #8b1e0f; transform: scale(1.2); }
+        .heart-btn:hover i { transform: scale(1.1); }
+        .heart-btn:active i { transform: scale(0.9); }
+
+        /* Toast Animation */
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        .toast-enter { animation: slideInRight 0.3s forwards; }
+        .toast-exit { animation: slideOutRight 0.3s forwards; }
     </style>
 
-    <!-- ⚠️ IMPORTING OUR CUSTOM COMPONENTS ⚠️ -->
+    <!-- Importing our custom Web Components (Header & Footer) -->
     <script src="js/components.js" defer></script>
-
 </head>
 <body class="text-ink antialiased">
 
-    <!-- 1. JADOO: Bas ek tag se pura Header, Menu, Search, aur Animations aayenge! -->
     <app-header></app-header>
 
-    <!-- 2. MAIN WRAPPER (Zaroori hai Parallax Footer ke liye) -->
-    <div id="main-wrapper" class="relative z-10 bg-bgLight shadow-[0_20px_50px_rgba(0,0,0,0.7)] min-h-screen pb-10 transition-all bg-white">
+    <!-- MAIN WRAPPER (Required for Parallax Footer Effect) -->
+    <div id="main-wrapper" class="relative z-10 bg-bgLight shadow-[0_20px_50px_rgba(0,0,0,0.7)] min-h-screen transition-all bg-white">
 
-        <!-- HERO SECTION -->
-        <section class="relative bg-cover bg-center py-16 md:py-24 lg:py-32" style="background-image: url('hero-bg.jpg');">
-            <!-- Fade Overlay -->
-            <div class="absolute inset-0 bg-white/90 sm:bg-gradient-to-r sm:from-white/95 sm:via-white/80 sm:to-transparent"></div>
+        <section class="relative bg-cover bg-center py-16 md:py-28 lg:py-36 overflow-hidden" style="background-image: url('hero-bg.jpg');">
+            <div class="absolute inset-0 bg-white/80 sm:bg-gradient-to-r sm:from-white/95 sm:via-white/85 sm:to-transparent"></div>
             
             <div class="container mx-auto px-4 lg:px-8 relative z-10">
                 <div class="max-w-2xl">
-                    <span class="inline-block bg-white/90 backdrop-blur text-primary text-[10px] sm:text-xs font-extrabold px-3 py-1.5 border border-primary/20 rounded shadow-sm tracking-[0.2em] uppercase mb-4">
-                        Quality First • Premium Range
+                    <span class="inline-block bg-white/90 backdrop-blur text-primary text-[10px] sm:text-xs font-extrabold px-3 py-1.5 border border-primary/20 rounded shadow-sm tracking-[0.2em] uppercase mb-6">
+                        Deoghar's Premium Store
                     </span>
-                    <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 leading-[1.1] mb-5 drop-shadow-sm">
-                        Design Your Dream <br>
-                        <span class="text-primary italic">Kitchen Today.</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-[1.1] mb-6 drop-shadow-sm">
+                        Upgrade Your <br>
+                        <span class="text-primary italic">Kitchen Lifestyle.</span>
                     </h2>
-                    <p class="text-gray-700 text-sm sm:text-base md:text-lg font-medium max-w-xl mb-8 leading-relaxed">
-                        Experience the finest collection of luxury cookware, elegant dining sets, high-tech appliances, and everyday kitchen essentials at Chulha Ghar, Deoghar.
+                    <p class="text-gray-700 text-sm sm:text-base md:text-lg font-medium max-w-xl mb-10 leading-relaxed">
+                        Discover the finest collection of luxury cookware, elegant dinner sets, high-tech appliances, and smart kitchen tools at Chulha Ghar.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="shop.html" class="bg-primary text-white px-8 py-3.5 rounded-lg shadow-[0_8px_20px_rgba(139,30,15,0.3)] font-bold hover:-translate-y-1 hover:shadow-[0_12px_25px_rgba(139,30,15,0.4)] transition-all">
-                            Shop Collection <i class="fa-solid fa-arrow-right ml-2"></i>
+                        <a href="shop.html" class="bg-primary text-white px-8 py-4 rounded-xl shadow-[0_8px_20px_rgba(139,30,15,0.3)] font-bold hover:-translate-y-1 hover:shadow-[0_12px_25px_rgba(139,30,15,0.4)] transition-all flex items-center gap-2">
+                            Explore Collection <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- DYNAMIC PRODUCTS SECTION -->
-        <section class="py-16">
+        <section class="py-12 bg-white relative z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] rounded-t-3xl -mt-6 border-b border-gray-100">
             <div class="container mx-auto px-4 lg:px-8">
-                <div class="flex justify-between items-end mb-8">
+                <div class="flex flex-col items-center text-center mb-10">
+                    <h2 class="font-serif text-2xl md:text-3xl font-bold text-gray-900">Shop by Category</h2>
+                    <div class="h-1 w-16 bg-gold mt-3 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-5">
+                    <!-- Category Cards -->
+                    <a href="shop.html?cat=Mixer" class="flex flex-col items-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-gold hover:bg-[#faf7f2] hover:-translate-y-1 transition-all group shadow-sm">
+                        <div class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-sm mb-3 group-hover:scale-110 transition-transform">🌪️</div>
+                        <span class="text-[11px] sm:text-xs font-extrabold text-gray-800 uppercase tracking-wide text-center">Mixer Grinders</span>
+                    </a>
+                    <a href="shop.html?cat=Cookware" class="flex flex-col items-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-gold hover:bg-[#faf7f2] hover:-translate-y-1 transition-all group shadow-sm">
+                        <div class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-sm mb-3 group-hover:scale-110 transition-transform">🍳</div>
+                        <span class="text-[11px] sm:text-xs font-extrabold text-gray-800 uppercase tracking-wide text-center">Cookware Sets</span>
+                    </a>
+                    <a href="shop.html?cat=DinnerSet" class="flex flex-col items-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-gold hover:bg-[#faf7f2] hover:-translate-y-1 transition-all group shadow-sm">
+                        <div class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-sm mb-3 group-hover:scale-110 transition-transform">🍽️</div>
+                        <span class="text-[11px] sm:text-xs font-extrabold text-gray-800 uppercase tracking-wide text-center">Dinner Sets</span>
+                    </a>
+                    <a href="shop.html?cat=Stove" class="flex flex-col items-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-gold hover:bg-[#faf7f2] hover:-translate-y-1 transition-all group shadow-sm">
+                        <div class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-sm mb-3 group-hover:scale-110 transition-transform">🔥</div>
+                        <span class="text-[11px] sm:text-xs font-extrabold text-gray-800 uppercase tracking-wide text-center">Gas Stoves</span>
+                    </a>
+                    <a href="shop.html?cat=Chimney" class="flex flex-col items-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-gold hover:bg-[#faf7f2] hover:-translate-y-1 transition-all group shadow-sm">
+                        <div class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-sm mb-3 group-hover:scale-110 transition-transform">💨</div>
+                        <span class="text-[11px] sm:text-xs font-extrabold text-gray-800 uppercase tracking-wide text-center">Chimneys</span>
+                    </a>
+                    <a href="shop.html?cat=Appliances" class="flex flex-col items-center p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-gold hover:bg-[#faf7f2] hover:-translate-y-1 transition-all group shadow-sm">
+                        <div class="h-12 w-12 sm:h-16 sm:w-16 bg-white rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-sm mb-3 group-hover:scale-110 transition-transform">⚡</div>
+                        <span class="text-[11px] sm:text-xs font-extrabold text-gray-800 uppercase tracking-wide text-center">Appliances</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-8 bg-white">
+            <div class="container mx-auto px-4 lg:px-8">
+                <div class="bg-gradient-to-r from-primary to-primaryDark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between text-white shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gold opacity-10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                    <div class="relative z-10 text-center md:text-left mb-6 md:mb-0">
+                        <span class="bg-gold text-black text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-sm mb-3 inline-block">Limited Time</span>
+                        <h3 class="font-serif text-2xl md:text-3xl font-bold mb-2">Festive Season Sale is Live!</h3>
+                        <p class="text-white/80 text-sm font-medium">Get up to 40% OFF on premium dinner sets and cookware.</p>
+                    </div>
+                    <a href="shop.html?sale=true" class="relative z-10 bg-white text-primary px-6 py-3 rounded-xl font-extrabold text-sm shadow-md hover:scale-105 transition-transform whitespace-nowrap">
+                        Claim Offers Now
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 bg-bgLight">
+            <div class="container mx-auto px-4 lg:px-8">
+                <div class="flex justify-between items-end mb-8 border-b border-gray-200 pb-4">
                     <div>
-                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Bestsellers</h2>
+                        <h2 class="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-2">Bestsellers</h2>
                         <div class="h-1 w-20 bg-primary rounded-full"></div>
                     </div>
                     <a href="shop.html" class="text-sm font-bold text-primary hover:text-gold transition-colors flex items-center gap-2">View All <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 
-                <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                    <p class="col-span-full py-10 text-center text-gray-500 font-bold"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading Premium Products...</p>
+                <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 pb-8">
+                    <!-- Skeleton Loader -->
+                    <p class="col-span-full py-12 text-center text-gray-500 font-bold flex flex-col items-center justify-center">
+                        <i class="fa-solid fa-circle-notch fa-spin text-3xl text-gold mb-3"></i>
+                        Fetching premium collection...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white border-t border-gray-100">
+            <div class="container mx-auto px-4 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+                    <div class="text-center group">
+                        <div class="h-16 w-16 mx-auto bg-red-50 text-primary rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300"><i class="fa-solid fa-medal"></i></div>
+                        <h4 class="font-bold text-gray-900 text-sm mb-2">Original Products</h4>
+                        <p class="text-xs text-gray-500 font-medium">100% Genuine brands.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-16 w-16 mx-auto bg-red-50 text-primary rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300"><i class="fa-solid fa-truck-fast"></i></div>
+                        <h4 class="font-bold text-gray-900 text-sm mb-2">Fast Delivery</h4>
+                        <p class="text-xs text-gray-500 font-medium">Free shipping over ₹999.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-16 w-16 mx-auto bg-red-50 text-primary rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h4 class="font-bold text-gray-900 text-sm mb-2">Secure Payments</h4>
+                        <p class="text-xs text-gray-500 font-medium">Razorpay 128-bit encryption.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="h-16 w-16 mx-auto bg-red-50 text-primary rounded-full flex items-center justify-center text-2xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300"><i class="fa-solid fa-rotate-left"></i></div>
+                        <h4 class="font-bold text-gray-900 text-sm mb-2">Easy Returns</h4>
+                        <p class="text-xs text-gray-500 font-medium">7-Days replacement policy.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -93,45 +175,49 @@
     </div> 
     <!-- MAIN WRAPPER ENDS -->
 
-    <!-- 3. JADOO: Bas ek tag se pura Parallax Footer aayega! -->
     <app-footer></app-footer>
 
-    <!-- Global UI Scripts (Toasts and Add to Cart) -->
-    <!-- Ye functions har page par chahiye honge isliye isko yahi rakha hai -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
     
     <script>
-        // Custom Premium Toast Notification
-        window.showToast = function(message) {
+        // Professional Toast Logic (No more ugly alerts!)
+        window.showToast = function(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            toast.className = 'bg-white border-l-4 border-primary shadow-xl px-4 py-3 rounded text-sm font-bold transform translate-x-full transition-transform duration-300 pointer-events-auto flex items-center gap-2';
-            toast.innerHTML = `<i class="fa-solid fa-check-circle text-primary"></i> ${message}`;
+            
+            // Icon based on type
+            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-green-500 text-lg"></i>' : '<i class="fa-solid fa-heart text-primary text-lg"></i>';
+            
+            toast.className = 'bg-white border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.1)] p-4 rounded-xl flex items-center gap-3 toast-enter pointer-events-auto min-w-[280px]';
+            toast.innerHTML = `${icon} <span class="font-bold text-sm text-gray-800">${message}</span>`;
+            
             container.appendChild(toast);
             
-            // Slide in
-            setTimeout(() => toast.classList.remove('translate-x-full'), 10);
-            
-            // Slide out & remove after 3 seconds
+            // Remove after 3 seconds
             setTimeout(() => {
-                toast.classList.add('translate-x-full');
+                toast.classList.replace('toast-enter', 'toast-exit');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
-        // Add to Cart Global Function
+        // Global Add to Cart Function
         window.addToCart = function(id, name, price, emoji) {
             let cart = JSON.parse(localStorage.getItem("chulha_cart") || "[]");
             let existing = cart.find(item => item.id === id);
-            if(existing) existing.qty += 1;
-            else cart.push({ id, name, price: Number(price), emoji, qty: 1 });
+            
+            if(existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ id, name, price: Number(price), emoji, qty: 1 });
+            }
             
             localStorage.setItem("chulha_cart", JSON.stringify(cart));
-            window.dispatchEvent(new Event("chulha-cart-updated")); // Tells Header to update number!
-            showToast(`${name} added to cart!`);
+            window.dispatchEvent(new Event("chulha-cart-updated")); // Tells Header to update
+            
+            showToast(`${name} added to cart!`, 'success');
         }
 
-        // Toggle Wishlist Global Function
+        // Global Toggle Wishlist Function
         window.toggleWishlist = function(id, name, price, emoji, btnElement) {
             let wishlist = JSON.parse(localStorage.getItem("chulha_wishlist") || "[]");
             let index = wishlist.findIndex(item => item.id === id);
@@ -141,21 +227,20 @@
                 wishlist.splice(index, 1);
                 btnElement.classList.remove('active');
                 btnElement.querySelector('i').classList.replace('fa-solid', 'fa-regular');
-                showToast(`${name} removed from wishlist.`);
+                showToast(`Removed from Wishlist`);
             } else {
                 // Add
                 wishlist.push({ id, name, price: Number(price), emoji });
                 btnElement.classList.add('active');
                 btnElement.querySelector('i').classList.replace('fa-regular', 'fa-solid');
-                showToast(`${name} saved to wishlist!`);
+                showToast(`Saved to Wishlist`, 'heart');
             }
             
             localStorage.setItem("chulha_wishlist", JSON.stringify(wishlist));
-            window.dispatchEvent(new Event("chulha-wishlist-updated")); // Tells Header to update number!
+            window.dispatchEvent(new Event("chulha-wishlist-updated")); // Tells Header to update
         }
     </script>
 
-    <!-- Firebase Logic to load products -->
     <script type="module">
         import { db, collection, getDocs } from './js/firebase-config.js';
 
@@ -163,47 +248,60 @@
             const grid = document.getElementById('product-grid');
             try {
                 const querySnapshot = await getDocs(collection(db, "products"));
+                const wishlist = JSON.parse(localStorage.getItem("chulha_wishlist") || "[]");
+
                 if(querySnapshot.empty) {
-                    grid.innerHTML = `<p class="col-span-full text-center py-10 font-bold text-gray-500">Go to <a href="admin.html" class="text-primary underline">Admin Panel</a> to add products.</p>`;
+                    // Premium Empty State if no products in Firebase yet
+                    grid.innerHTML = `
+                        <div class="col-span-full flex flex-col items-center justify-center py-16 text-center bg-white rounded-2xl border border-dashed border-gray-300">
+                            <div class="h-20 w-20 bg-red-50 rounded-full flex items-center justify-center text-primary text-3xl mb-4"><i class="fa-solid fa-box-open"></i></div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Store is getting ready!</h3>
+                            <p class="text-gray-500 font-medium mb-6 max-w-sm">Products are being arranged on the shelves. Please visit the admin panel to upload stock.</p>
+                            <a href="admin.html" class="bg-primary text-white px-6 py-2.5 rounded-lg font-bold shadow-md hover:bg-primaryDark transition-colors">Go to Admin Panel</a>
+                        </div>
+                    `;
                     return;
                 }
                 
-                const wishlist = JSON.parse(localStorage.getItem("chulha_wishlist") || "[]");
-
                 let html = '';
-                // Sirf 8 product dikhayenge homepage par
                 let count = 0;
+                
                 querySnapshot.forEach((doc) => {
-                    if(count >= 8) return; 
+                    if(count >= 8) return; // Show max 8 products on homepage
                     const p = doc.data();
-                    const mrp = Math.round(p.price * 1.3);
+                    const mrp = Math.round(p.price * 1.3); // Fake 30% markup for MRP display
                     const discount = Math.round(((mrp - p.price) / mrp) * 100);
-                    const wishActive = wishlist.some(w => w.id === doc.id);
+                    const isWishlisted = wishlist.some(w => w.id === doc.id);
 
                     html += `
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col relative overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                            <div class="absolute top-3 left-3 z-10 bg-gold text-ink text-[10px] font-bold px-2.5 py-1 rounded shadow-sm">${discount}% OFF</div>
+                            <!-- Discount Tag -->
+                            <div class="absolute top-3 left-3 z-10 bg-gold text-ink text-[9px] font-black px-2 py-1 rounded uppercase tracking-wider shadow-sm">${discount}% OFF</div>
                             
-                            <!-- Wishlist Heart -->
-                            <div onclick="toggleWishlist('${doc.id}', '${p.name}', ${p.price}, '${p.emoji}', this)" class="heart-btn absolute top-3 right-3 z-10 h-8 w-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-gray-400 shadow-sm ${wishActive ? 'active' : ''}">
-                                <i class="${wishActive ? 'fa-solid' : 'fa-regular'} fa-heart text-[15px]"></i>
+                            <!-- Wishlist Button -->
+                            <div onclick="toggleWishlist('${doc.id}', '${p.name}', ${p.price}, '${p.emoji || '🥘'}', this)" class="heart-btn absolute top-3 right-3 z-10 h-8 w-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-gray-400 shadow-sm border border-gray-100 hover:text-primary ${isWishlisted ? 'active' : ''}">
+                                <i class="${isWishlisted ? 'fa-solid text-primary' : 'fa-regular'} fa-heart text-[15px]"></i>
                             </div>
 
-                            <a href="#" class="h-44 sm:h-52 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center text-7xl group-hover:scale-105 transition-transform duration-500">
-                                ${p.emoji}
+                            <!-- Product Image/Emoji -->
+                            <a href="product.html?id=${doc.id}" class="h-44 sm:h-48 bg-gradient-to-br from-gray-50 to-[#f8f5f0] flex items-center justify-center text-7xl group-hover:scale-105 transition-transform duration-500">
+                                ${p.emoji || '🥘'}
                             </a>
                             
+                            <!-- Details -->
                             <div class="p-4 sm:p-5 flex flex-col flex-1">
-                                <span class="text-[9px] sm:text-[10px] font-extrabold text-primary uppercase tracking-widest mb-1.5">${p.category}</span>
-                                <a href="#" class="font-bold text-gray-900 text-sm sm:text-[15px] leading-snug mb-3 line-clamp-2 hover:text-primary transition-colors min-h-[2.5rem]">
+                                <span class="text-[9px] font-extrabold text-gray-500 uppercase tracking-widest mb-1.5">${p.category}</span>
+                                <a href="product.html?id=${doc.id}" class="font-bold text-gray-900 text-[13px] sm:text-[15px] leading-snug mb-3 line-clamp-2 hover:text-primary transition-colors min-h-[2.5rem]">
                                     ${p.name}
                                 </a>
-                                <div class="flex items-center gap-2.5 mb-5 mt-auto">
-                                    <span class="font-black text-primary text-lg sm:text-xl">₹${p.price.toLocaleString('en-IN')}</span>
-                                    <span class="text-xs font-semibold text-gray-400 line-through">₹${mrp.toLocaleString('en-IN')}</span>
+                                
+                                <div class="flex items-end gap-2 mb-5 mt-auto">
+                                    <span class="font-black text-primary text-lg sm:text-xl leading-none">₹${p.price.toLocaleString('en-IN')}</span>
+                                    <span class="text-[11px] font-semibold text-gray-400 line-through leading-none mb-0.5">₹${mrp.toLocaleString('en-IN')}</span>
                                 </div>
-                                <button onclick="addToCart('${doc.id}', '${p.name}', ${p.price}, '${p.emoji}')" class="w-full bg-white border-2 border-primary text-primary py-2.5 rounded-xl text-sm font-bold shadow-sm hover:bg-primary hover:text-white active:scale-[0.98] transition-all flex justify-center items-center gap-2">
-                                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                                
+                                <button onclick="addToCart('${doc.id}', '${p.name}', ${p.price}, '${p.emoji || '🥘'}')" class="w-full bg-white border-2 border-primary text-primary py-2.5 rounded-xl text-sm font-bold hover:bg-primary hover:text-white active:scale-[0.97] transition-all flex justify-center items-center gap-2 group-hover:shadow-md">
+                                    <i class="fa-solid fa-cart-shopping"></i> Add
                                 </button>
                             </div>
                         </div>
@@ -212,10 +310,17 @@
                 });
                 grid.innerHTML = html;
             } catch (error) {
-                console.error(error);
-                grid.innerHTML = `<p class="col-span-full text-center text-red-500">Error loading products. Check console.</p>`;
+                console.error("Firebase fetch error:", error);
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-10 bg-red-50 rounded-xl border border-red-100">
+                        <i class="fa-solid fa-triangle-exclamation text-red-500 text-3xl mb-3"></i>
+                        <p class="text-red-700 font-bold">Could not connect to Firebase database.</p>
+                        <p class="text-red-500 text-sm mt-1">Please check your internet connection or API keys.</p>
+                    </div>`;
             }
         }
+        
+        // Load products on page load
         loadProducts();
     </script>
 </body>
